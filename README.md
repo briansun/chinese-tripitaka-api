@@ -1,6 +1,6 @@
 # API for Chinese Tripitaka (deerpark.app)
 
-[![CBETA version](https://img.shields.io/badge/CBETA-2019Q1-brightgreen.svg)](http://cbeta.org)
+[![CBETA version](https://img.shields.io/badge/CBETA-2019Q3-brightgreen.svg)](http://cbeta.org)
 
 [「漢文大藏經」網站](https://deerpark.app)目前是由一個人在開發和維護，進度不會太快，有任何建議或意見請發到 brian@xmind.net 。謝謝支持！🙏
 
@@ -16,7 +16,7 @@
 
 
 ## All works
-取回所有佛經的 meta data，目前有 4614 條。
+取回所有佛經的 meta data，目前有 4600+ 條。
 
 ### API:
 ```URL
@@ -24,7 +24,7 @@ https://deerpark.app/api/v1/allworks
 ```
 
 ### Sample Response:
-除了 alias 之外，其它信息是一定會有的。
+除了 alias/alt 之外，其它信息是一定會有的。
 ```js
 [
   {
@@ -33,7 +33,10 @@ https://deerpark.app/api/v1/allworks
     "byline": "後秦 佛陀耶舍共竺佛念譯", // 譯者或作者，有些是一人，有些是多人，有些是（失）
     "juans": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22], // 大部分經是從1開始，有時候不是
     "chars": 198729, // 祛除標點符號後的字數
-    "alias": "..." // 大部分經沒有別名，少數有，如「法華經」
+
+    // Optional
+    "alias": "...", // 短名稱。大部分經沒有，少數有，如「法華經」
+    "alt": "X0001 xxxxxx" // CBETA 其它編號和名稱。大部分經沒有，少數有，詳見 JB277。App 中不予以顯示。
   },
   ...
 ]
@@ -115,22 +118,21 @@ https://deerpark.app/api/v1/html/T0251/1
 
 
 ## Download pdf/epub/mobi
+最新更新：pdf/epub/mobi 已全部更新為最新版。今後應該能與 html 保持版本一致。
 
 ### API:
 ```URL
 https://deerpark.app/api/v1/download/:type/:id
 ```
 
-CBETA 提供了四種格式的文件下載，分別是：
+CBETA 提供了三種格式的文件下載，分別是：
 * PDF （適合 A4 面幅打印）
-* PDF （適合 iPad 橫屏閱讀）
 * epub （開放格式，適合所有 epub 閱讀器，如 Apple Books）
 * mobi （適合 Kindle 閱讀）
 
 ### Sample Request:
 ```URL
-https://deerpark.app/api/v1/download/pdf_a4/T0945
-https://deerpark.app/api/v1/download/pdf_ipad/T0945
+https://deerpark.app/api/v1/download/pdf/T0945
 https://deerpark.app/api/v1/download/epub/T0945
 https://deerpark.app/api/v1/download/mobi/T0945
 ```

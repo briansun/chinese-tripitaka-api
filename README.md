@@ -141,7 +141,7 @@ https://deerpark.app/api/v1/download/mobi/T0945
 ## Full Text Search
 搜索結果最多返回 100 個 items，目前還沒有做分頁，所以超過 100 個時，請增加搜索詞。
 
-本 API 完全依賴 CBETA API 的 [kwic3](https://cbdata.dila.edu.tw/v1.2/static_pages/kwic3) 服務，所以有時會特別慢，有時結果中有錯，而且順序也有問題。此外，因為其它 API 如 allworks 是穩定在某個版本上，而 kwic3 服務會持續更新，極有可能不一致，有時會返回 allworks 中不存在的經典，也就是新整理的經典。（已被我去除，所以結果也可能少於 100 條。）
+本 API 完全依賴 CBETA API 的 [kwic3](https://cbdata.dila.edu.tw/v1.2/static_pages/kwic3) 服務，所以有時會特別慢，有時結果中有錯，而且順序也有問題。此外，因為其它 API 如 allworks 是穩定在某個版本上，而 kwic3 服務會持續更新，極有可能不一致，有時會返回 allworks 中不存在的經典，也就是新整理的經典。（已被我去除，所以結果也可能少於 100 條，或少於 found。）
 
 ### API:
 ```URL
@@ -269,3 +269,80 @@ https://deerpark.app/api/v1/readinglist/yinshun
   ]
 }
 ```
+
+# API for Buddhist Dictionary (New)
+
+新增佛學辭典 API，內含五部辭典，分別是《陳義孝佛學常見辭彙》，《法相辭典》，《三藏法數》，《丁福保佛學大辭典》，《佛光大辭典》。
+
+## Search Suggestion
+
+### API:
+```URL
+https://deerpark.app/api/v1/dict/suggest/:term
+```
+
+### Sample Request:
+如果用戶輸入的是簡體字，API 會自動轉為繁體。如果該簡體對應多個繁體，我們會盡量保證多個版本都有效。
+
+```URL
+https://deerpark.app/api/v1/dict/suggest/如來藏
+```
+
+最好在請求的關鍵詞中，只出現中文，不出現西文字符。 (Best Practice)
+
+### Sample Response:
+首先出現在結果中的，是和關鍵詞一模一樣的詞條，其次是以關鍵詞為首的詞條，最後是包含關鍵詞的詞條。最多返回 50 個結果。
+
+```js
+[
+  "如來藏",
+  "如來藏心",
+  "如來藏緣起",
+  "如來藏性",
+  "如來藏經",
+  "如來藏經十喻",
+  "如來藏論",
+  "一切有情是如來藏等",
+  "三如來藏",
+  "不空如來藏",
+  "九喻──如來藏九喻",
+  "二如來藏",
+  "空如來藏",
+  "大方廣如來藏經",
+  "大方等如來藏經",
+  "十種如來藏",
+  "隱沒如來藏"
+]
+```
+
+## Lookup
+
+### API:
+```URL
+https://deerpark.app/api/v1/dict/lookup/:term
+```
+（PS. 在尾部加 `?html` 可以得到簡易版網頁）
+
+### Sample Request:
+注意：搜索詞必須是精確的，否則會 404。這裡不提供簡繁轉換。所以最好使用上面 Search Suggestion API 提供的結果。
+
+```URL
+https://deerpark.app/api/v1/dict/lookup/如來藏
+```
+
+### Sample Response:
+```js
+{
+    "word": "如來藏", // 搜索詞
+    "data": [ // 不超過 5 個結果，因為只有五部辭典，請勿依賴其順序
+        {
+            "dictid": 0,
+            "dict": "陳義孝佛學常見辭彙", // 辭典名稱
+            "expl": "<p>真如在煩惱中，攝藏如來一切果地上的功德，名如來藏，若出了煩惱，即名法身。</p>"
+        },
+        ...
+    ]
+}
+```
+如果 dictid = 3 （丁福保佛學大辭典），expl 會出現：
+* `<a href="bword://如來藏">如來藏</a>` （此處可按需要將 bword:// 替換為真實連結）

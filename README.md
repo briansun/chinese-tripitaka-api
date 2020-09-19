@@ -1,6 +1,6 @@
 # API for Chinese Tripitaka (deerpark.app)
 
-[![CBETA version](https://img.shields.io/badge/CBETA-2020Q1-brightgreen.svg)](http://cbeta.org)
+[![CBETA version](https://img.shields.io/badge/CBETA-2020Q3-brightgreen.svg)](http://cbeta.org)
 
 [「漢文大藏經」網站](https://deerpark.app)目前是由一個人在開發和維護，進度不會太快，有任何建議或意見請發到 brian@xmind.net 。謝謝支持！🙏
 
@@ -344,5 +344,5 @@ https://deerpark.app/api/v1/dict/lookup/如來藏
     ]
 }
 ```
-如果 dictid = 3 （丁福保佛學大辭典），expl 會出現：
-* `<a href="bword://如來藏">如來藏</a>` （此處可按需要將 bword:// 替換為真實連結）
+如果 dictid = 3 （丁福保佛學大辭典），expl 可能會出現 hyperlink，例如：
+* `<a href="/dict/如來藏">如來藏</a>` 

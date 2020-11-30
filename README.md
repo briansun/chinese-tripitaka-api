@@ -139,36 +139,61 @@ https://deerpark.app/api/v1/download/mobi/T0945
 
 
 ## Full Text Search
-搜索結果最多返回 100 個 items，目前還沒有做分頁，所以超過 100 個時，請增加搜索詞。
-
-本 API 完全依賴 CBETA API 的 [kwic3](https://cbdata.dila.edu.tw/v1.2/static_pages/kwic3) 服務，所以有時會特別慢，有時結果中有錯，而且順序也有問題。此外，因為其它 API 如 allworks 是穩定在某個版本上，而 kwic3 服務會持續更新，極有可能不一致，有時會返回 allworks 中不存在的經典，也就是新整理的經典。（已被我去除，所以結果也可能少於 100 條，或少於 found。）
+搜索結果最多返回 100 個 works，無分頁功能，所以超過 100 個時，請增加搜索詞。
 
 ### API:
 ```URL
-https://deerpark.app/api/v1/fullsearch/all/:term
-https://deerpark.app/api/v1/fullsearch/:id/:term
+GET https://deerpark.app/api/v1/fts/works/:term
 ```
 
 ### Sample Request:
 ```URL
-https://deerpark.app/api/v1/fullsearch/all/一切有为法
-https://deerpark.app/api/v1/fullsearch/T0251/般若
+https://deerpark.app/api/v1/fts/works/一切有为法
 ```
 
 ### Sample Response:
 ```js
 {
-  "found": 1006, // 一共有多少結果
-  "results": [ // 最多 100 個結果
+  "found": 864, // 一共有多少結果，單位是「處」而不是「經」
+  "works": [ // 出現次數最多的 100 部經 
     {
-      "id": "X0484",
-      "title": "金剛經大意",
-      "byline": "清 王起隆述",
-      "total": 1, // 本經一共有多少卷
-      "chars": 4819, // 本經一共有多少字
-      "juan": 1, // 當前搜索結果是第幾卷
-      "lb": "0362a01", // 行號
-      "kwic": "。一重增勝。一重通為有相福德。較見性福德。實算數比喻不及。後四段。則佛隨順機緣。破遣凡夫依正報執。末一切有為法一偈。則總收全經。故不分正宗。不分流通。護念付囑。婆心痛切。庠序秩如似乎。貫華似乎。散華似乎。正智似" // 上下文
+      "search_results": 56, // 關鍵詞在本經出現的次數
+
+      // 以下是本經的基本信息
+      "id": "T1509",
+      "title": "大智度論",
+      "byline": "龍樹菩薩造 後秦 鳩摩羅什譯",
+      "juans": [1,2,3,4,5,6,7,8,9,10......],
+      "chars": 956053
+    },
+    ...
+  ]
+}
+```
+
+
+## Full Text Search （在一部經中搜索）
+搜索結果最多返回 100 個 results，無分頁功能，所以超過 100 個時，請增加搜索詞。
+
+### API:
+```URL
+GET https://deerpark.app/api/v1/fts/:id/:term
+```
+
+### Sample Request:
+```URL
+https://deerpark.app/api/v1/fts/T0220/一切有为法
+```
+
+### Sample Response:
+```js
+{
+  "found": 6, // 一共有多少結果
+  "results": [ // 最多 100 個結果，按出現順序排序
+    {
+      "juan": 69, // 第幾卷
+      "lb": "0391a15", // 行號
+      "paragraph": "...非壞。何以故？本性爾故。一切有漏法非常非壞。何以故？本性爾故。一切無漏法非常非壞。何以故？本性爾故。<em>一切有為法</em>非常非壞。何以故？本性爾故。一切無為法非常非壞。何以故？本性爾故。舍利子！由此緣故我作是說：諸法亦爾..." // 上下文，關鍵詞用 <em> 標出，無其它 html tag
     },
     ...
   ]

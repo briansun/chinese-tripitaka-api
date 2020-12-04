@@ -152,10 +152,11 @@ GET https://deerpark.app/api/v1/fts/works/一切有为法
 ```
 
 ### Sample Response:
+請注意，這裡沒有返回上下文，只返回了該關鍵詞在每部經中出現多少次。按次數排序。
 ```js
 {
   "found": 864, // 一共有多少結果，單位是「處」而不是「經」
-  "works": [ // 出現次數最多的 100 部經 
+  "works": [ // 出現次數最多的 100 部經
     {
       "search_results": 56, // 關鍵詞在本經出現的次數
 

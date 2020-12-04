@@ -19,8 +19,8 @@
 取回所有佛經的 meta data，目前有 4600+ 條。
 
 ### API:
-```URL
-https://deerpark.app/api/v1/allworks
+```
+GET https://deerpark.app/api/v1/allworks
 ```
 
 ### Sample Response:
@@ -47,13 +47,13 @@ https://deerpark.app/api/v1/allworks
 取回某部經典的目錄
 
 ### API:
-```URL
-https://deerpark.app/api/v1/toc/:id
+```
+GET https://deerpark.app/api/v1/toc/:id
 ```
 
 ### Sample Request:
-```URL
-https://deerpark.app/api/v1/toc/T0251
+```
+GET https://deerpark.app/api/v1/toc/T0251
 ```
 
 ### Sample Response:
@@ -90,15 +90,15 @@ https://deerpark.app/api/v1/toc/T0251
 
 ### API:
 不帶卷號的 url 會自動轉向為該經的第一卷，如果沒有第一卷就往後遞推。
-```URL
-https://deerpark.app/api/v1/html/:id
-https://deerpark.app/api/v1/html/:id/:juan
+```
+GET https://deerpark.app/api/v1/html/:id
+GET https://deerpark.app/api/v1/html/:id/:juan
 ```
 
 ### Sample Request:
-```URL
-https://deerpark.app/api/v1/html/T0251
-https://deerpark.app/api/v1/html/T0251/1
+```
+GET https://deerpark.app/api/v1/html/T0251
+GET https://deerpark.app/api/v1/html/T0251/1
 ```
 
 ### Sample Response:
@@ -121,8 +121,8 @@ https://deerpark.app/api/v1/html/T0251/1
 最新更新：pdf/epub/mobi 已全部更新為最新版。今後應該能與 html 保持版本一致。
 
 ### API:
-```URL
-https://deerpark.app/api/v1/download/:type/:id
+```
+GET https://deerpark.app/api/v1/download/:type/:id
 ```
 
 CBETA 提供了三種格式的文件下載，分別是：
@@ -131,24 +131,24 @@ CBETA 提供了三種格式的文件下載，分別是：
 * mobi （適合 Kindle 閱讀）
 
 ### Sample Request:
-```URL
-https://deerpark.app/api/v1/download/pdf/T0945
-https://deerpark.app/api/v1/download/epub/T0945
-https://deerpark.app/api/v1/download/mobi/T0945
+```
+GET https://deerpark.app/api/v1/download/pdf/T0945
+GET https://deerpark.app/api/v1/download/epub/T0945
+GET https://deerpark.app/api/v1/download/mobi/T0945
 ```
 
 
-## Full Text Search
+## Full Text Search （在所有經中搜索）
 搜索結果最多返回 100 個 works，無分頁功能，所以超過 100 個時，請增加搜索詞。
 
 ### API:
-```URL
+```
 GET https://deerpark.app/api/v1/fts/works/:term
 ```
 
 ### Sample Request:
-```URL
-https://deerpark.app/api/v1/fts/works/一切有为法
+```
+GET https://deerpark.app/api/v1/fts/works/一切有为法
 ```
 
 ### Sample Response:
@@ -176,12 +176,12 @@ https://deerpark.app/api/v1/fts/works/一切有为法
 搜索結果最多返回 100 個 results，無分頁功能，所以超過 100 個時，請增加搜索詞。
 
 ### API:
-```URL
+```
 GET https://deerpark.app/api/v1/fts/:id/:term
 ```
 
 ### Sample Request:
-```URL
+```
 https://deerpark.app/api/v1/fts/T0220/一切有为法
 ```
 
@@ -204,8 +204,8 @@ https://deerpark.app/api/v1/fts/T0220/一切有为法
 ## Reading lists
 
 ### API:
-```URL
-https://deerpark.app/api/v1/readinglist/:name
+```
+GET https://deerpark.app/api/v1/readinglist/:name
 ```
 
 目前已有 4 個 reading list，分別是：
@@ -271,11 +271,11 @@ https://deerpark.app/api/v1/readinglist/:name
 
 
 ### Sample Request:
-```URL
-https://deerpark.app/api/v1/readinglist/home
-https://deerpark.app/api/v1/readinglist/famous
-https://deerpark.app/api/v1/readinglist/fuyan
-https://deerpark.app/api/v1/readinglist/yinshun
+```
+GET https://deerpark.app/api/v1/readinglist/home
+GET https://deerpark.app/api/v1/readinglist/famous
+GET https://deerpark.app/api/v1/readinglist/fuyan
+GET https://deerpark.app/api/v1/readinglist/yinshun
 ```
 
 ### Sample Response (home):
@@ -295,22 +295,22 @@ https://deerpark.app/api/v1/readinglist/yinshun
 }
 ```
 
-# API for Buddhist Dictionary (New)
+# API for Buddhist Dictionary
 
 新增佛學辭典 API，內含五部辭典，分別是《陳義孝佛學常見辭彙》，《法相辭典》，《三藏法數》，《丁福保佛學大辭典》，《佛光大辭典》。
 
 ## Search Suggestion
 
 ### API:
-```URL
-https://deerpark.app/api/v1/dict/suggest/:term
+```
+GET https://deerpark.app/api/v1/dict/suggest/:term
 ```
 
 ### Sample Request:
 如果用戶輸入的是簡體字，API 會自動轉為繁體。如果該簡體對應多個繁體，我們會盡量保證多個版本都有效。
 
-```URL
-https://deerpark.app/api/v1/dict/suggest/如來藏
+```
+GET https://deerpark.app/api/v1/dict/suggest/如來藏
 ```
 
 最好在請求的關鍵詞中，只出現中文，不出現西文字符。 (Best Practice)
@@ -343,16 +343,16 @@ https://deerpark.app/api/v1/dict/suggest/如來藏
 ## Lookup
 
 ### API:
-```URL
-https://deerpark.app/api/v1/dict/lookup/:term
+```
+GET https://deerpark.app/api/v1/dict/lookup/:term
 ```
 （PS. 在尾部加 `?html` 可以得到簡易版網頁）
 
 ### Sample Request:
 注意：搜索詞必須是精確的，否則會 404。這裡不提供簡繁轉換。所以最好使用上面 Search Suggestion API 提供的結果。
 
-```URL
-https://deerpark.app/api/v1/dict/lookup/如來藏
+```
+GET https://deerpark.app/api/v1/dict/lookup/如來藏
 ```
 
 ### Sample Response:

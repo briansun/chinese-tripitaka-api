@@ -1,6 +1,6 @@
 # API for Chinese Tripitaka (deerpark.app)
 
-[![CBETA version](https://img.shields.io/badge/CBETA-2020Q4-brightgreen.svg)](http://cbeta.org)
+[![CBETA version](https://img.shields.io/badge/CBETA-2021Q1-brightgreen.svg)](http://cbeta.org)
 
 [「漢文大藏經」網站](https://deerpark.app)目前是由一個人在開發和維護，進度不會太快，有任何建議或意見請發到 brian@xmind.net 。謝謝支持！🙏
 

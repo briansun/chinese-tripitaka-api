@@ -1,10 +1,10 @@
 # API for Chinese Tripitaka (deerpark.app)
 
-[![CBETA version](https://img.shields.io/badge/CBETA-2021Q1-brightgreen.svg)](http://cbeta.org)
+[![CBETA version](https://img.shields.io/badge/CBETA-2022Q1-brightgreen.svg)](http://cbeta.org)
 
 [「漢文大藏經」網站](https://deerpark.app)目前是由一個人在開發和維護，進度不會太快，有任何建議或意見請發到 brian@xmind.net 。謝謝支持！🙏
 
-服務器目前放在 AWS Tokyo，運營成本由[「XMind 軟件公司」](https://www.xmind.net)供養。🙏
+服務器目前放在 AWS Tokyo，運營成本由[「XMind 思維導圖軟件公司」](https://www.xmind.net)供養。🙏
 
 ## 概念
 本站的 API 看起來會像是 [CBETA API](https://cbdata.dila.edu.tw/v1.2/) 的一個簡化版本。
